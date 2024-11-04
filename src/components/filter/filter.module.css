@@ -1,0 +1,18 @@
+.container {
+  margin-top: 43px;
+}
+.title {
+  font-size: 15px;
+  font-weight: 600;
+}
+.button {
+  color: #2081d2;
+  font-size: 12px;
+  background: none;
+  cursor: pointer;
+  transition: var(--transition);
+}
+.button:hover,
+.button:focus {
+  color: #006ac3;
+}
