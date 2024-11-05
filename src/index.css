@@ -52,7 +52,7 @@ body {
   font-weight: 500;
   font-style: normal;
   line-height: normal;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 * {
   margin: 0;

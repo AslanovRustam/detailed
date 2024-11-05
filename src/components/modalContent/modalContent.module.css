@@ -1,7 +1,7 @@
 .container {
-  /* width: 519px;
-  height: 599px;
-  flex-shrink: 0; */
+  width: 519px;
+  height: auto;
+  flex-shrink: 0;
   border-radius: 10px;
   border: 1px solid var(--Grey);
   background: #fff;
@@ -34,6 +34,7 @@
   padding: 3px 24.39px 3.36px 23px;
   justify-content: center;
   align-items: center;
+  border-radius: 8px;
 }
 .elbowPositive {
   background-color: var(--Blue, #3d9be9);
@@ -62,8 +63,8 @@
   background-color: var(--Purple, #d783ff);
 }
 .image {
-  width: auto;
-  max-height: 80vh;
-  height: auto;
+  /* width: auto; */
+  /* max-height: 80vh; */
+  /* height: auto; */
   margin-top: 20px;
 }

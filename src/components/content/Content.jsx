@@ -3,6 +3,7 @@ import Tabs from "../tabs/Tabs";
 import ModalWrapper from "../modal/ModalWrapper";
 import ModalContent from "../modalContent/ModalContent";
 import s from "./content.module.css";
+import Pagination from "../pagination/Pagination";
 
 function Content({ tabs, activeTab, selectActiveTab, data }) {
   const [showModal, setShowModal] = useState(false);
@@ -10,14 +11,16 @@ function Content({ tabs, activeTab, selectActiveTab, data }) {
 
   const displayedData =
     activeTab === "All groups"
-      ? [...data.valid, ...data.train, ...data.test]
-      : data[activeTab.toLowerCase()] || [];
+      ? [data.valid.files, data.train.files, data.test.files].flat()
+      : data[activeTab.toLowerCase()].files || [];
+  // const displayedData = [];
 
   const toggleModal = (item, extractedText) => {
     setShowModal(!showModal);
     setModalContent({ ...item, altName: extractedText });
   };
-  console.log(modalContent);
+  console.log("modalContent", modalContent);
+  console.log("activeTab", activeTab);
 
   return (
     <section className={s.section}>
@@ -37,13 +40,13 @@ function Content({ tabs, activeTab, selectActiveTab, data }) {
       />
       <ul className={s.list}>
         {displayedData?.map((item) => {
-          const match = item.thumbnailsUrl.match(/\/([^/]+)\.rf/);
+          const match = item?.thumbnailsUrl?.match(/\/([^/]+)\.rf/);
           let extractedText = match ? match[1] : "Unknown";
           extractedText = extractedText.replace(/_(png|jpg)$/, "");
           return (
             <li
+              key={item?.imgUrl}
               className={s.item}
-              key={item.imgUrl}
               onClick={() => toggleModal(item, extractedText)}
               alt={extractedText}
             >
@@ -53,6 +56,7 @@ function Content({ tabs, activeTab, selectActiveTab, data }) {
           );
         })}
       </ul>
+      {/* <Pagination /> */}
       {showModal && (
         <ModalWrapper onClose={toggleModal}>
           <ModalContent

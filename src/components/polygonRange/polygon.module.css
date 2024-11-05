@@ -15,3 +15,29 @@
   font-size: 12px;
   font-weight: 600;
 }
+.elbowPositive {
+  background-color: var(--Blue, #3d9be9);
+}
+
+.fingersPositive {
+  background-color: var(--Green, #bada55);
+}
+
+.forearmFracture {
+  background-color: var(--Yellow, #ffd75c);
+}
+
+.humerus {
+  background-color: var(--Sea, #2ce1cb);
+}
+
+.humerusFracture {
+  background-color: var(---Red, #f25858);
+}
+.shoulderFracture {
+  background-color: var(--Orange, #fdb03e);
+}
+
+.wristPositive {
+  background-color: var(--Purple, #d783ff);
+}

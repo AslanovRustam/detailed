@@ -16,19 +16,40 @@ function App() {
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  const [nextToken, setNextToken] = useState({
+    tokenValid: null,
+    tokenTrain: null,
+    tokenTest: null,
+  });
+  const [page, setPage] = useState(1);
+  const [tokens, setTokens] = useState({
+    tokenValid: null,
+    tokenTrain: null,
+    tokenTest: null,
+  });
 
   const fetchAllData = async () => {
     setLoading(true);
     try {
-      const validFiles = await listAllFiles("valid");
-      const trainFiles = await listAllFiles("train");
-      const testFiles = await listAllFiles("test");
-      ////TODO promiseall
+      const promises = [
+        listAllFiles("valid", 20, tokens.tokenValid),
+        listAllFiles("train", 20, tokens.tokenTrain),
+        listAllFiles("test", 20, tokens.tokenTest),
+      ];
+      const [validFiles, trainFiles, testFiles] = await Promise.all(promises);
       setAllGroups({
         valid: validFiles,
         train: trainFiles,
         test: testFiles,
       });
+      setNextToken({
+        tokenValid: validFiles.nextContinuationToken || null,
+        tokenTrain: trainFiles.nextContinuationToken || null,
+        tokenTest: testFiles.nextContinuationToken || null,
+      });
+      if (data.nextContinuationToken) {
+        setTokens((prevTokens) => [...prevTokens, data.nextContinuationToken]);
+      }
     } catch (error) {
       console.log("Something went wrong", error);
       setError(error);
@@ -45,20 +66,23 @@ function App() {
     fetchAllData();
   }, []);
 
-  console.log(allGroups);
+  console.log("allGroups", allGroups);
+  console.log("nextToken", nextToken);
+  console.log("activeTab", activeTab);
   return (
     <section className="section">
       <AsideComponent />
-      <Content
-        tabs={tabs}
-        activeTab={activeTab}
-        selectActiveTab={selectActiveTab}
-        data={allGroups}
-      />
-      {loading && (
+      {loading ? (
         <ModalWrapper>
           <Loader />
         </ModalWrapper>
+      ) : (
+        <Content
+          tabs={tabs}
+          activeTab={activeTab}
+          selectActiveTab={selectActiveTab}
+          data={allGroups}
+        />
       )}
     </section>
   );

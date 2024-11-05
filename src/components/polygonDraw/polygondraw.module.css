@@ -1,0 +1,26 @@
+.image-container {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  height: auto;
+}
+
+.bone-fracture-image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.polygon-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.polygon {
+  position: absolute;
+  border: 2px solid yellow;
+  box-sizing: border-box;
+}

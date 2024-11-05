@@ -26,7 +26,6 @@ function ModalWrapper({ children, onClose }) {
   }
 
   return createPortal(
-    // <div className={s.modalBackDrop} onClick={() => onClose()}>
     <div className={s.modalBackDrop}>{children}</div>,
     modalRootRef.current
   );
