@@ -1,31 +1,35 @@
-import s from "./pagination.module.css";
+import { useState } from "react";
+import Pagination from "@mui/material/Pagination";
+import Stack from "@mui/material/Stack";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-function Pagination() {
-  const handleNextPage = () => {
-    if (nextToken) {
-      fetchFiles(nextToken, true);
-      setPage((prevPage) => prevPage + 1);
-    }
-  };
+const theme = createTheme({
+  palette: {
+    ochre: {
+      main: "#ffd75c",
+      light: "#fdb03e",
+      dark: "#fdb03e",
+      contrastText: "#242105",
+    },
+  },
+});
 
-  const handlePreviousPage = () => {
-    if (page > 1) {
-      const previousToken = tokens[page - 1];
-      fetchFiles(previousToken, false);
-      setPage((prevPage) => prevPage - 1);
-    }
+function PaginationComponent({ setPage, paginationCount }) {
+  const handleChange = (event, value) => {
+    setPage(value);
   };
   return (
-    <div>
-      <button onClick={handlePreviousPage} disabled={page === 1}>
-        Previous
-      </button>
-      <span>Page {page}</span>
-      <button onClick={handleNextPage} disabled={!nextToken}>
-        Next
-      </button>
-    </div>
+    <ThemeProvider theme={theme}>
+      <Stack spacing={2}>
+        <Pagination
+          count={paginationCount}
+          color="ochre"
+          sx={{ color: "ochre.main" }}
+          onChange={handleChange}
+        />
+      </Stack>
+    </ThemeProvider>
   );
 }
 
-export default Pagination;
+export default PaginationComponent;

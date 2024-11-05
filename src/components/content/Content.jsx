@@ -2,18 +2,42 @@ import { useState } from "react";
 import Tabs from "../tabs/Tabs";
 import ModalWrapper from "../modal/ModalWrapper";
 import ModalContent from "../modalContent/ModalContent";
-import Pagination from "../pagination/Pagination";
+import PaginationComponent from "../pagination/Pagination";
 import PolygonDraw from "../polygonDraw/PolygonDraw";
 import s from "./content.module.css";
 
-function Content({ tabs, activeTab, selectActiveTab, data, badges, range }) {
+function Content({
+  tabs,
+  activeTab,
+  selectActiveTab,
+  data,
+  badges,
+  range,
+  page,
+  setPage,
+}) {
   const [showModal, setShowModal] = useState(false);
   const [modalContent, setModalContent] = useState(null);
+
+  const itemsPerPage = 30;
 
   const displayedData =
     activeTab === "All groups"
       ? [data.valid.files, data.train.files, data.test.files].flat()
       : data[activeTab.toLowerCase()].files || [];
+
+  const startIndex = (page - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+
+  const currentPageData = displayedData.slice(startIndex, endIndex);
+
+  const paginationCount = Math.ceil(displayedData.length / itemsPerPage);
+
+  const isLastPage = page === paginationCount;
+
+  const currentPageCount = isLastPage
+    ? displayedData.length
+    : startIndex + currentPageData.length;
 
   const toggleModal = (item, extractedText) => {
     setShowModal(!showModal);
@@ -25,7 +49,7 @@ function Content({ tabs, activeTab, selectActiveTab, data, badges, range }) {
       <div className={s.container}>
         <h1 className={s.title}>Bone-fracture-detection </h1>
         <div className={s.countContainer}>
-          <span className={s.boldText}></span>
+          <span className={s.boldText}>{currentPageCount}</span>
           <span className={s.thinText}>of</span>
           <span className={s.boldText}>{displayedData.length}</span>
           <span className={s.thinText}>images</span>
@@ -37,7 +61,7 @@ function Content({ tabs, activeTab, selectActiveTab, data, badges, range }) {
         selectActiveTab={selectActiveTab}
       />
       <ul className={s.list}>
-        {displayedData?.map((item) => {
+        {currentPageData?.map((item) => {
           if (!item) {
             return null;
           }
@@ -52,7 +76,6 @@ function Content({ tabs, activeTab, selectActiveTab, data, badges, range }) {
               onClick={() => toggleModal(item, extractedText)}
               alt={extractedText}
             >
-              {/* <img src={item?.thumbnailsUrl} className={s.thumbnails} /> */}
               <PolygonDraw
                 fileData={item}
                 classNames={item.className}
@@ -67,7 +90,15 @@ function Content({ tabs, activeTab, selectActiveTab, data, badges, range }) {
           );
         })}
       </ul>
-      {/* <Pagination /> */}
+      {displayedData.length > currentPageData.length && (
+        <div className={s.pagination}>
+          <PaginationComponent
+            paginationCount={paginationCount}
+            setPage={setPage}
+          />
+        </div>
+      )}
+
       {showModal && (
         <ModalWrapper onClose={toggleModal}>
           <ModalContent

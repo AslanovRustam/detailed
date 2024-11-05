@@ -34,9 +34,9 @@ function App() {
     setLoading(true);
     try {
       const promises = [
-        listAllFiles("valid", 20, tokens.tokenValid),
-        listAllFiles("train", 20, tokens.tokenTrain),
-        listAllFiles("test", 20, tokens.tokenTest),
+        listAllFiles("valid", 200, tokens.tokenValid),
+        listAllFiles("train", 200, tokens.tokenTrain),
+        listAllFiles("test", 200, tokens.tokenTest),
       ];
       const [validFiles, trainFiles, testFiles] = await Promise.all(promises);
       setAllGroups({
@@ -67,6 +67,7 @@ function App() {
   useEffect(() => {
     fetchAllData();
   }, []);
+  console.log(allGroups);
 
   return (
     <section className="section">
@@ -88,6 +89,8 @@ function App() {
           data={allGroups}
           badges={badges}
           range={range}
+          page={page}
+          setPage={setPage}
         />
       )}
     </section>

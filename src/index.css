@@ -76,3 +76,6 @@ img {
 /* .MuiSlider-track {
   background-image: url(../../assets/Poligonrange.svg);
 } */
+.MuiPagination-ul {
+  justify-content: center;
+}
