@@ -19,6 +19,7 @@ function Filter({ range, setRange, badges, setBadges }) {
         selected: select,
       }))
     );
+    setRange([0, 4]);
   };
 
   return (

@@ -2,11 +2,11 @@ import { useState } from "react";
 import Tabs from "../tabs/Tabs";
 import ModalWrapper from "../modal/ModalWrapper";
 import ModalContent from "../modalContent/ModalContent";
-import s from "./content.module.css";
 import Pagination from "../pagination/Pagination";
 import PolygonDraw from "../polygonDraw/PolygonDraw";
+import s from "./content.module.css";
 
-function Content({ tabs, activeTab, selectActiveTab, data, badges }) {
+function Content({ tabs, activeTab, selectActiveTab, data, badges, range }) {
   const [showModal, setShowModal] = useState(false);
   const [modalContent, setModalContent] = useState(null);
 
@@ -44,7 +44,6 @@ function Content({ tabs, activeTab, selectActiveTab, data, badges }) {
           const match = item?.thumbnailsUrl?.match(/\/([^/]+)\.rf/);
           let extractedText = match ? match[1] : "Unknown";
           extractedText = extractedText.replace(/_(png|jpg)$/, "");
-          console.log("item.className", item.className);
 
           return (
             <li
@@ -61,6 +60,7 @@ function Content({ tabs, activeTab, selectActiveTab, data, badges }) {
                 polygonHeight={100}
                 id={item?.thumbnailsUrl}
                 badges={badges}
+                range={range}
               />
               <p className={s.altText}>{extractedText}</p>
             </li>
@@ -73,6 +73,7 @@ function Content({ tabs, activeTab, selectActiveTab, data, badges }) {
           <ModalContent
             modalContent={modalContent}
             closeModal={() => setShowModal(false)}
+            range={range}
           />
         </ModalWrapper>
       )}

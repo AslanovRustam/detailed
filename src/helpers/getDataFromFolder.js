@@ -186,7 +186,6 @@ export const listAllFiles = async (
         })
       );
 
-      // Сохраняем токен для следующей страницы только при загрузке "images"
       if (subFolder === "images") {
         nextContinuationToken = data.NextContinuationToken || null;
       }
@@ -194,24 +193,10 @@ export const listAllFiles = async (
 
     return {
       files: Array.from(fileData.values()),
-      nextContinuationToken, // Вернем токен для следующей страницы, если он есть
+      nextContinuationToken,
     };
   } catch (err) {
     console.error("Error fetching files:", err);
     return { files: [], nextContinuationToken: null };
   }
 };
-
-// // bone-fracture-detection/train/labels/
-// // bone-fracture-detection/test/labels/
-// // bone-fracture-detection/valid/labels/
-// // bone-fracture-detection/train/images/
-// // bone-fracture-detection/test/images/
-// // bone-fracture-detection/valid/images/
-// // bone-fracture-detection/train/thumbnails/
-// // bone-fracture-detection/test/thumbnails/
-// // bone-fracture-detection/valid/thumbnails/
-// // "https://s3.eu-central-1.amazonaws.com/dataspan.frontend-home-assignment/bone-fracture-detection/valid/images/coronoid-process-fracture_jpg.rf.71650459c69a9734ecd545067cf18bf4.jpg";
-// // "https://s3.eu-central-1.amazonaws.com/dataspan.frontend-home-assignment/bone-fracture-detection/valid/thumbnails/coronoid-process-fracture_jpg.rf.71650459c69a9734ecd545067cf18bf4.jpg";
-// // "https://s3.eu-central-1.amazonaws.com/dataspan.frontend-home-assignment/bone-fracture-detection/valid/thumbnails/coronoid-process-fracture_jpg.rf.71650459c69a9734ecd545067cf18bf4.jpg";
-// // "https://s3.eu-central-1.amazonaws.com/dataspan.frontend-home-assignment/bone-fracture-detection/valid/images/coronoid-process-fracture_jpg.rf.71650459c69a9734ecd545067cf18bf4.jpg";

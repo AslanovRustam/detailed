@@ -13,6 +13,7 @@ function PolygonDraw({
   polygonHeight,
   id,
   badges,
+  range,
 }) {
   const itemClasses = classNames.map((item) => nameClass[item]);
 
@@ -43,6 +44,17 @@ function PolygonDraw({
         });
         layer.add(konvaImage);
 
+        const lowerBound = Math.floor(range[0]);
+        const upperBound = Math.ceil(range[1]);
+        const availablePolygons = fileData.coords.length;
+
+        const polygonsToDisplay = Math.min(
+          availablePolygons,
+          upperBound - lowerBound
+        );
+
+        let displayedCount = 0;
+
         fileData.coords.forEach((polygon, idx) => {
           const points = polygon.map((p, i) =>
             i % 2 === 0 ? p * polygonWidth : p * polygonHeight
@@ -50,7 +62,10 @@ function PolygonDraw({
 
           const currentClass = itemClasses[idx];
 
-          if (classesToDraw.includes(currentClass)) {
+          if (
+            classesToDraw.includes(currentClass) &&
+            displayedCount < polygonsToDisplay
+          ) {
             const polygonNode = new Konva.Line({
               points: points,
               fill: bgColorsForPolygon[currentClass] || "#5c5959",
@@ -59,6 +74,7 @@ function PolygonDraw({
               closed: true,
             });
             layer.add(polygonNode);
+            displayedCount++;
 
             const {
               x: bboxX,
@@ -145,7 +161,7 @@ function PolygonDraw({
         stage.destroy();
       };
     }
-  }, [fileData, polygonWidth, polygonHeight, id, classesToDraw]);
+  }, [fileData, polygonWidth, polygonHeight, id, classesToDraw, range]);
 
   return (
     <div

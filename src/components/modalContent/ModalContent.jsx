@@ -3,7 +3,7 @@ import PolygonDraw from "../polygonDraw/PolygonDraw";
 import Close from "../../assets/close.svg";
 import s from "./modalContent.module.css";
 
-function ModalContent({ modalContent, closeModal }) {
+function ModalContent({ modalContent, closeModal, range }) {
   return (
     <div className={s.container}>
       <p className={s.name}>
@@ -31,6 +31,7 @@ function ModalContent({ modalContent, closeModal }) {
           polygonWidth={447}
           polygonHeight={447}
           badges={badgeNamesForModal}
+          range={range}
         />
       </div>
     </div>

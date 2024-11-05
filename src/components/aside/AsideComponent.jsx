@@ -1,6 +1,6 @@
-import s from "./aside.module.css";
-import Logo from "../../assets/Logo.svg";
 import Filter from "../filter/Filter";
+import Logo from "../../assets/Logo.svg";
+import s from "./aside.module.css";
 
 function AsideComponent({ range, setRange, badges, setBadges }) {
   return (

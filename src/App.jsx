@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import AsideComponent from "./components/aside/AsideComponent";
 import Content from "./components/content/Content";
-import { listAllFiles } from "./helpers/getDataFromFolder";
-import { badgeNames, tabs } from "./helpers/constants";
 import ModalWrapper from "./components/modal/ModalWrapper";
 import Loader from "./components/loader/Loader";
+import { badgeNames, tabs } from "./helpers/constants";
+import { listAllFiles } from "./helpers/getDataFromFolder";
 import "./index.css";
 
 function App() {
@@ -68,8 +68,6 @@ function App() {
     fetchAllData();
   }, []);
 
-  // console.log("badges", badges);
-
   return (
     <section className="section">
       <AsideComponent
@@ -89,6 +87,7 @@ function App() {
           selectActiveTab={selectActiveTab}
           data={allGroups}
           badges={badges}
+          range={range}
         />
       )}
     </section>
