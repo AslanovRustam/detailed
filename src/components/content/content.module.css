@@ -1,0 +1,44 @@
+.section {
+  width: 100%;
+}
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.title {
+  font-size: 32px;
+  font-weight: 600;
+}
+.countContainer {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.boldText {
+  font-size: 18px;
+  font-weight: 700;
+}
+.thinText {
+  font-size: 18px;
+  font-weight: 400;
+}
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 17px;
+}
+.thumbnails {
+  width: 100px;
+  height: 100px;
+}
+.altText {
+  width: 100px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #041d32;
+  font-size: 12px;
+  font-weight: 300;
+}

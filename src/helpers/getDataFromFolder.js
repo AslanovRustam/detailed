@@ -10,7 +10,7 @@ const s3 = new S3Client({
   region: REGION,
   credentials: fromCognitoIdentityPool({
     clientConfig: { region: REGION },
-    identityPoolId: "eu-central-1:31ebe2ab-fc9d-4a2c-96a9-9dee9a9db8b9",
+    identityPoolId: import.meta.env.VITE_IDENTITY_POOL_ID,
   }),
 });
 
@@ -44,10 +44,11 @@ export const listAllFiles = async (folder = "valid") => {
       const command = new ListObjectsV2Command({
         Bucket: albumBucketName,
         Prefix: `bone-fracture-detection/${folder}/${subFolder}/`,
+        MaxKeys: 5000,
       });
 
       const data = await s3.send(command);
-      // console.log("data.Contents", data.Contents);
+      console.log("data.Contents", data);
 
       if (data.Contents) {
         data.Contents.forEach((file) => {
@@ -82,7 +83,7 @@ export const listAllFiles = async (folder = "valid") => {
     }
 
     const data = Array.from(results.values());
-    console.log("data", data);
+    // console.log("data", data);
     return data;
   } catch (err) {
     console.error("Ошибка при получении файлов:", err);

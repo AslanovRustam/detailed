@@ -1,0 +1,17 @@
+.title {
+  font-size: 15px;
+  font-weight: 600;
+}
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 11px 0 13px;
+}
+.text {
+  font-size: 12px;
+}
+.bold {
+  font-size: 12px;
+  font-weight: 600;
+}

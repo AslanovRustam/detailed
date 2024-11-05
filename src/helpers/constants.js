@@ -10,3 +10,18 @@ export const names = [
   "shoulder fracture",
   "wrist positive",
 ];
+export const nameClass = [
+  "elbowPositive",
+  "fingersPositive",
+  "forearmFracture",
+  "humerusFracture",
+  "humerus",
+  "shoulderFracture",
+  "wristPositive",
+];
+
+export const badgeNames = names.map((item, idx) => {
+  return { id: idx, name: item, nameClass: nameClass[idx], selected: false };
+});
+
+export const tabs = ["All groups", "Train", "Valid", "Test"];

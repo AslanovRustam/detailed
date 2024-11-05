@@ -5,8 +5,14 @@
   font-size: 15px;
   font-weight: 600;
 }
+.selectedAll {
+  display: flex;
+  align-items: center;
+  gap: 17px;
+  margin-top: 16px;
+}
 .button {
-  color: #2081d2;
+  color: var(--Grey);
   font-size: 12px;
   background: none;
   cursor: pointer;
@@ -14,5 +20,44 @@
 }
 .button:hover,
 .button:focus {
-  color: #006ac3;
+  color: var(--Accent-blue);
+}
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 11px;
+}
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.clear {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+}
+.text {
+  font-size: 12px;
+  font-weight: 600;
+  transition: var(--transition);
+}
+.help {
+  color: rgba(0, 0, 0, 0.5);
+  font-size: 12px;
+  font-weight: 400;
+  cursor: pointer;
+}
+.icon {
+  fill: var(--Black);
+  transition: var(--transition);
+}
+.clear:hover .icon,
+.clear:focus .icon,
+.clear:hover .text,
+.clear:focus .text {
+  fill: var(--Blue, #3d9be9);
+  color: var(--Blue, #3d9be9);
 }

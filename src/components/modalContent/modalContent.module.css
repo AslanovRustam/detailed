@@ -1,0 +1,69 @@
+.container {
+  /* width: 519px;
+  height: 599px;
+  flex-shrink: 0; */
+  border-radius: 10px;
+  border: 1px solid var(--Grey);
+  background: #fff;
+  padding: 20px 36px 36px;
+}
+.name {
+  font-size: 14px;
+  font-weight: 400;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.icon {
+  cursor: pointer;
+}
+.details {
+  font-size: 12px;
+  font-weight: 300;
+  margin-top: 17px;
+}
+.list {
+  margin-top: 10px;
+  display: flex;
+  gap: 8px;
+}
+.item {
+  font-size: 10px;
+  font-weight: 400;
+  display: inline-flex;
+  padding: 3px 24.39px 3.36px 23px;
+  justify-content: center;
+  align-items: center;
+}
+.elbowPositive {
+  background-color: var(--Blue, #3d9be9);
+}
+
+.fingersPositive {
+  background-color: var(--Green, #bada55);
+}
+
+.forearmFracture {
+  background-color: var(--Yellow, #ffd75c);
+}
+
+.humerus {
+  background-color: var(--Sea, #2ce1cb);
+}
+
+.humerusFracture {
+  background-color: var(---Red, #f25858);
+}
+.shoulderFracture {
+  background-color: var(--Orange, #fdb03e);
+}
+
+.wristPositive {
+  background-color: var(--Purple, #d783ff);
+}
+.image {
+  width: auto;
+  max-height: 80vh;
+  height: auto;
+  margin-top: 20px;
+}

@@ -11,7 +11,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  --transition: all 0.3 ease-in-out;
+  --transition: all 0.3s ease-in-out;
 
   /* colors */
   --Light-blue: #2081d2;
@@ -20,15 +20,20 @@
   --Grey: #d1d1d6;
   --Black: #041d32;
   --Green: #bada55;
+  --Yellow: #ffd75c;
+  --Red: #f25858;
+  --Orange: #fdb03e;
+  --Sea: #2ce1cb;
+  --Purple: #d783ff;
 
   /* background */
   --bg--blue: rgba(61, 155, 233, 0.2);
-  --bg--blue: rgba(186, 218, 85, 0.2);
-  --bg--blue: rgba(255, 215, 92, 0.20)
-  --bg--blue: rgba(61, 155, 233, 0.2);
-  --bg--blue: rgba(61, 155, 233, 0.2);
-  --bg--blue: rgba(61, 155, 233, 0.2);
-  --bg--blue: rgba(61, 155, 233, 0.2);
+  --bg--green: rgba(186, 218, 85, 0.2);
+  --bg--yellow: rgba(255, 215, 92, 0.2);
+  --bg--red: rgba(242, 88, 88, 0.2);
+  --bg--orange: rgba(253, 176, 62, 0.2);
+  --bg--sea: rgba(44, 225, 203, 0.2);
+  --bg--purple: rgba(215, 131, 255, 0.2);
 }
 
 html {
@@ -48,7 +53,6 @@ body {
   font-style: normal;
   line-height: normal;
   overflow: hidden;
-  padding: 25px 32px;
 }
 * {
   margin: 0;
@@ -63,5 +67,12 @@ img {
   height: auto;
 }
 .section {
+  width: 100vw;
+  padding: 25px 32px;
   display: flex;
+  gap: 48px;
+  justify-content: space-between;
 }
+/* .MuiSlider-track {
+  background-image: url(../../assets/Poligonrange.svg);
+} */

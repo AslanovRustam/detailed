@@ -1,0 +1,99 @@
+.container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 4px 13px;
+  border-radius: 25px;
+  width: fit-content;
+  cursor: pointer;
+  transition: var(--transition);
+}
+.circle {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+.text {
+  font-size: 12px;
+  font-weight: 600;
+}
+.elbowPositive {
+  background-color: var(--Blue, #3d9be9);
+}
+.container.elbowPositive {
+  border: 1px solid var(--Blue, #3d9be9);
+  background-color: transparent;
+}
+.container.elbowPositive.selected_elbowPositive {
+  background-color: var(--bg--blue);
+}
+
+.fingersPositive {
+  background-color: var(--Green, #bada55);
+}
+.container.fingersPositive {
+  border: 1px solid var(--Green, #bada55);
+  background-color: transparent;
+}
+.container.fingersPositive.selected_fingersPositive {
+  background-color: var(--bg--green);
+}
+
+.forearmFracture {
+  background-color: var(--Yellow, #ffd75c);
+}
+.container.forearmFracture {
+  border: 1px solid var(--Yellow, #ffd75c);
+  background-color: transparent;
+}
+.container.forearmFracture.selected_forearmFracture {
+  background-color: var(--bg--yellow);
+}
+
+.humerus {
+  background-color: var(--Sea, #2ce1cb);
+}
+.container.humerus {
+  border: 1px solid var(--Sea, #2ce1cb);
+  background-color: transparent;
+}
+.container.humerus.selected_humerus {
+  background-color: var(--bg--sea);
+}
+
+.humerusFracture {
+  background-color: var(---Red, #f25858);
+}
+.container.humerusFracture {
+  border: 1px solid var(---Red, #f25858);
+  background-color: transparent;
+}
+.container.humerusFracture.selected_humerusFracture {
+  background-color: var(--bg--red);
+}
+
+.shoulderFracture {
+  background-color: var(--Orange, #fdb03e);
+}
+.container.shoulderFracture {
+  border: 1px solid var(--Orange, #fdb03e);
+  background-color: transparent;
+}
+.container.shoulderFracture.selected_shoulderFracture {
+  background-color: var(--bg--orange);
+}
+
+.wristPositive {
+  background-color: var(--Purple, #d783ff);
+}
+.container.wristPositive {
+  border: 1px solid var(--Purple, #d783ff);
+  background-color: transparent;
+}
+.container.wristPositive.selected_wristPositive {
+  background-color: var(--bg--purple);
+}
+.container:hover {
+  border-color: transparent;
+  /* background-color: transparent; */
+}

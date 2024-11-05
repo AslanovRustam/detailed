@@ -1,0 +1,19 @@
+.list {
+  display: flex;
+  align-items: center;
+  margin-top: 31px;
+  border-bottom: 1px solid #d1d1d6;
+}
+.item {
+  padding: 5px 15px;
+  font-size: 14px;
+  font-weight: 400;
+  border: 1px solid transparent;
+  transition: var(--transition);
+  cursor: pointer;
+}
+.active {
+  border-bottom: 1px solid #ffd75c;
+  background: rgba(255, 215, 92, 0.1);
+  color: #f2cc58;
+}
