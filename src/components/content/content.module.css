@@ -29,6 +29,9 @@
   gap: 12px;
   margin-top: 17px;
 }
+.item {
+  cursor: pointer;
+}
 .thumbnails {
   width: 100px;
   height: 100px;

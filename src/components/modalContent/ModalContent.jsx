@@ -1,6 +1,6 @@
-import { nameClass } from "../../helpers/constants";
-import Close from "../../assets/close.svg";
+import { badgeNamesForModal, nameClass } from "../../helpers/constants";
 import PolygonDraw from "../polygonDraw/PolygonDraw";
+import Close from "../../assets/close.svg";
 import s from "./modalContent.module.css";
 
 function ModalContent({ modalContent, closeModal }) {
@@ -28,6 +28,9 @@ function ModalContent({ modalContent, closeModal }) {
         <PolygonDraw
           fileData={modalContent}
           classNames={modalContent.className}
+          polygonWidth={447}
+          polygonHeight={447}
+          badges={badgeNamesForModal}
         />
       </div>
     </div>

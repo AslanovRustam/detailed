@@ -4,8 +4,9 @@ import ModalWrapper from "../modal/ModalWrapper";
 import ModalContent from "../modalContent/ModalContent";
 import s from "./content.module.css";
 import Pagination from "../pagination/Pagination";
+import PolygonDraw from "../polygonDraw/PolygonDraw";
 
-function Content({ tabs, activeTab, selectActiveTab, data }) {
+function Content({ tabs, activeTab, selectActiveTab, data, badges }) {
   const [showModal, setShowModal] = useState(false);
   const [modalContent, setModalContent] = useState(null);
 
@@ -13,14 +14,11 @@ function Content({ tabs, activeTab, selectActiveTab, data }) {
     activeTab === "All groups"
       ? [data.valid.files, data.train.files, data.test.files].flat()
       : data[activeTab.toLowerCase()].files || [];
-  // const displayedData = [];
 
   const toggleModal = (item, extractedText) => {
     setShowModal(!showModal);
     setModalContent({ ...item, altName: extractedText });
   };
-  console.log("modalContent", modalContent);
-  console.log("activeTab", activeTab);
 
   return (
     <section className={s.section}>
@@ -40,9 +38,14 @@ function Content({ tabs, activeTab, selectActiveTab, data }) {
       />
       <ul className={s.list}>
         {displayedData?.map((item) => {
+          if (!item) {
+            return null;
+          }
           const match = item?.thumbnailsUrl?.match(/\/([^/]+)\.rf/);
           let extractedText = match ? match[1] : "Unknown";
           extractedText = extractedText.replace(/_(png|jpg)$/, "");
+          console.log("item.className", item.className);
+
           return (
             <li
               key={item?.imgUrl}
@@ -50,7 +53,15 @@ function Content({ tabs, activeTab, selectActiveTab, data }) {
               onClick={() => toggleModal(item, extractedText)}
               alt={extractedText}
             >
-              <img src={item?.thumbnailsUrl} className={s.thumbnails} />
+              {/* <img src={item?.thumbnailsUrl} className={s.thumbnails} /> */}
+              <PolygonDraw
+                fileData={item}
+                classNames={item.className}
+                polygonWidth={100}
+                polygonHeight={100}
+                id={item?.thumbnailsUrl}
+                badges={badges}
+              />
               <p className={s.altText}>{extractedText}</p>
             </li>
           );

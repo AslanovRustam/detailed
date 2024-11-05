@@ -6,16 +6,26 @@ import {
   bgColorsForPolygon,
 } from "../../helpers/constants";
 
-function PolygonDraw({ fileData, classNames }) {
+function PolygonDraw({
+  fileData,
+  classNames,
+  polygonWidth,
+  polygonHeight,
+  id,
+  badges,
+}) {
   const itemClasses = classNames.map((item) => nameClass[item]);
-  console.log("itemClasses", itemClasses);
+
+  const classesToDraw = badges
+    .filter((badge) => badge.selected)
+    .map((badge) => badge.nameClass);
 
   useEffect(() => {
     if (fileData) {
       const stage = new Konva.Stage({
-        container: "canvas-container",
-        width: 447,
-        height: 447,
+        container: `canvas-container-${id}`,
+        width: polygonWidth,
+        height: polygonHeight,
       });
 
       const layer = new Konva.Layer();
@@ -28,103 +38,104 @@ function PolygonDraw({ fileData, classNames }) {
           image: imageObj,
           x: 0,
           y: 0,
-          width: 447,
-          height: 447,
+          width: polygonWidth,
+          height: polygonHeight,
         });
         layer.add(konvaImage);
 
-        fileData.coords.map((polygon, idx) => {
+        fileData.coords.forEach((polygon, idx) => {
           const points = polygon.map((p, i) =>
-            i % 2 === 0 ? p * 447 : p * 447
+            i % 2 === 0 ? p * polygonWidth : p * polygonHeight
           );
 
-          const polygonNode = new Konva.Line({
-            points: points,
-            fill: bgColorsForPolygon[itemClasses[idx]] || "#5c5959",
-            stroke: colorsForPolygon[itemClasses[idx]] || "#5c5959",
-            strokeWidth: 2,
-            closed: true,
-          });
-          layer.add(polygonNode);
+          const currentClass = itemClasses[idx];
 
-          const {
-            x: bboxX,
-            y: bboxY,
-            width: bboxWidth,
-            height: bboxHeight,
-          } = polygonNode.getClientRect();
-          const containerOffset = 4;
+          if (classesToDraw.includes(currentClass)) {
+            const polygonNode = new Konva.Line({
+              points: points,
+              fill: bgColorsForPolygon[currentClass] || "#5c5959",
+              stroke: colorsForPolygon[currentClass] || "#5c5959",
+              strokeWidth: 2,
+              closed: true,
+            });
+            layer.add(polygonNode);
 
-          const containerNode = new Konva.Group();
+            const {
+              x: bboxX,
+              y: bboxY,
+              width: bboxWidth,
+              height: bboxHeight,
+            } = polygonNode.getClientRect();
+            const containerOffset = 4;
 
-          const containerBackground = new Konva.Rect({
-            x: bboxX - containerOffset,
-            y: bboxY - 30 - containerOffset,
-            width: bboxWidth + containerOffset * 2,
-            height: bboxHeight + containerOffset * 2 + 30,
-            fill: "rgba(0, 0, 0, 0.2)",
-            cornerRadius: 10,
-          });
-          containerNode.add(containerBackground);
+            const containerNode = new Konva.Group();
 
-          const containerBorder = new Konva.Rect({
-            x: bboxX - containerOffset,
-            y: bboxY - 30 - containerOffset,
-            width: bboxWidth + containerOffset * 2,
-            height: bboxHeight + containerOffset * 2 + 30,
-            stroke: polygonNode.stroke(),
-            strokeWidth: polygonNode.strokeWidth(),
-            cornerRadius: 10,
-          });
-          containerNode.add(containerBorder);
+            const containerBackground = new Konva.Rect({
+              x: bboxX - containerOffset,
+              y: bboxY - 30 - containerOffset,
+              width: bboxWidth + containerOffset * 2,
+              height: bboxHeight + containerOffset * 2 + 30,
+              fill: "rgba(0, 0, 0, 0.2)",
+              cornerRadius: 10,
+            });
+            containerNode.add(containerBackground);
 
-          const headerWidth = bboxWidth + containerOffset * 2;
-          const headerHeight = 30;
-          const textToDisplay = itemClasses[idx];
+            const containerBorder = new Konva.Rect({
+              x: bboxX - containerOffset,
+              y: bboxY - 30 - containerOffset,
+              width: bboxWidth + containerOffset * 2,
+              height: bboxHeight + containerOffset * 2 + 30,
+              stroke: polygonNode.stroke(),
+              strokeWidth: polygonNode.strokeWidth(),
+              cornerRadius: 10,
+            });
+            containerNode.add(containerBorder);
 
-          const headerTextTemp = new Konva.Text({
-            text: textToDisplay,
-            fontSize: 14,
-            fontFamily: "sans-serif",
-            fill: "black",
-          });
-          const textWidth = headerTextTemp.width();
+            let fontSize = 14;
+            const textToDisplay = currentClass;
 
-          let fontSize = 14;
-          while (textWidth > headerWidth - 10 && fontSize > 8) {
-            fontSize -= 1;
-            headerTextTemp.fontSize(fontSize);
+            const headerTextTemp = new Konva.Text({
+              text: textToDisplay,
+              fontSize: fontSize,
+              fontFamily: "sans-serif",
+              fill: "black",
+            });
+
+            let textWidth = headerTextTemp.width();
+            while (textWidth > bboxWidth && fontSize > 4) {
+              fontSize -= 1;
+              headerTextTemp.fontSize(fontSize);
+              textWidth = headerTextTemp.width();
+            }
+
+            const headerHeight = fontSize * 1.5;
+
+            const containerHeader = new Konva.Rect({
+              x: bboxX - containerOffset,
+              y: bboxY - 30 - containerOffset,
+              width: bboxWidth + containerOffset * 2,
+              height: headerHeight,
+              fill: colorsForPolygon[currentClass] || "#5c5959",
+              cornerRadius: 20,
+            });
+
+            const headerTextNode = new Konva.Text({
+              x:
+                bboxX -
+                containerOffset +
+                (bboxWidth + containerOffset * 2 - textWidth) / 2,
+              y: bboxY - 30 - containerOffset + (headerHeight - fontSize) / 2,
+              text: textToDisplay,
+              fontSize: fontSize,
+              fontFamily: "sans-serif",
+              fill: "black",
+            });
+
+            containerNode.add(containerHeader);
+            containerNode.add(headerTextNode);
+
+            layer.add(containerNode);
           }
-
-          const containerHeader = new Konva.Rect({
-            x: bboxX - containerOffset,
-            y: bboxY - 30 - containerOffset,
-            width: headerWidth,
-            height: headerHeight,
-            fill: colorsForPolygon[itemClasses[idx]] || "#5c5959",
-            cornerRadius: 10,
-          });
-
-          const headerTextNode = new Konva.Text({
-            x:
-              bboxX -
-              containerOffset +
-              (headerWidth - headerTextTemp.width()) / 2,
-            y:
-              bboxY -
-              30 -
-              containerOffset +
-              (headerHeight - headerTextTemp.height()) / 2,
-            text: textToDisplay,
-            fontSize: fontSize,
-            fontFamily: "sans-serif",
-            fill: "black",
-          });
-
-          containerNode.add(containerHeader);
-          containerNode.add(headerTextNode);
-
-          layer.add(containerNode);
         });
 
         layer.batchDraw();
@@ -134,12 +145,12 @@ function PolygonDraw({ fileData, classNames }) {
         stage.destroy();
       };
     }
-  }, [fileData]);
+  }, [fileData, polygonWidth, polygonHeight, id, classesToDraw]);
 
   return (
     <div
-      id="canvas-container"
-      style={{ width: "447px", height: "447px" }}
+      id={`canvas-container-${id}`}
+      style={{ width: `${polygonWidth}px`, height: `${polygonHeight}px` }}
     ></div>
   );
 }

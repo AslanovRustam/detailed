@@ -24,6 +24,10 @@ export const badgeNames = names.map((item, idx) => {
   return { id: idx, name: item, nameClass: nameClass[idx], selected: false };
 });
 
+export const badgeNamesForModal = names.map((item, idx) => {
+  return { id: idx, name: item, nameClass: nameClass[idx], selected: true };
+});
+
 export const tabs = ["All groups", "Train", "Valid", "Test"];
 
 export const bgColorsForPolygon = {

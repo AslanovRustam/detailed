@@ -1,14 +1,9 @@
-import { useState } from "react";
 import Badge from "../badge/Badge";
 import PolygonRange from "../polygonRange/PolygonRange";
-import { badgeNames } from "../../helpers/constants"; ////TODO folder core
 import Trash from "../../assets/trash.svg";
 import s from "./filter.module.css";
 
-function Filter() {
-  const [badges, setBadges] = useState(badgeNames);
-  const [range, setRange] = useState([0, 4]);
-
+function Filter({ range, setRange, badges, setBadges }) {
   const selectBadge = (id) => {
     setBadges((prev) =>
       prev.map((item) =>
@@ -16,20 +11,13 @@ function Filter() {
       )
     );
   };
-  ////TODO toogleallbadges
-  const selectAllBadge = () => {
+
+  const toggleAllBadges = (select) => {
     setBadges((prev) =>
-      prev.map((item) => {
-        return { ...item, selected: true };
-      })
-    );
-  };
-  ////TODO toogleallbadges
-  const deselectAllBadge = () => {
-    setBadges((prev) =>
-      prev.map((item) => {
-        return { ...item, selected: false };
-      })
+      prev.map((item) => ({
+        ...item,
+        selected: select,
+      }))
     );
   };
 
@@ -37,10 +25,18 @@ function Filter() {
     <div className={s.container}>
       <p className={s.title}>Classes filter</p>
       <div className={s.selectedAll}>
-        <button type="button" className={s.button} onClick={selectAllBadge}>
+        <button
+          type="button"
+          className={s.button}
+          onClick={() => toggleAllBadges(true)}
+        >
           Select all
         </button>
-        <button type="button" className={s.button} onClick={deselectAllBadge}>
+        <button
+          type="button"
+          className={s.button}
+          onClick={() => toggleAllBadges(false)}
+        >
           Deselect all
         </button>
       </div>
@@ -57,7 +53,7 @@ function Filter() {
       </ul>
       <PolygonRange range={range} setRange={setRange} />
       <div className={s.wrapper}>
-        <div className={s.clear} onClick={deselectAllBadge}>
+        <div className={s.clear} onClick={() => toggleAllBadges(false)}>
           <Trash className={s.icon} />
           <span className={s.text}>Clear Filters</span>
         </div>

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import AsideComponent from "./components/aside/AsideComponent";
 import Content from "./components/content/Content";
 import { listAllFiles } from "./helpers/getDataFromFolder";
-import { tabs } from "./helpers/constants";
+import { badgeNames, tabs } from "./helpers/constants";
 import ModalWrapper from "./components/modal/ModalWrapper";
 import Loader from "./components/loader/Loader";
 import "./index.css";
@@ -27,6 +27,8 @@ function App() {
     tokenTrain: null,
     tokenTest: null,
   });
+  const [range, setRange] = useState([0, 4]);
+  const [badges, setBadges] = useState(badgeNames);
 
   const fetchAllData = async () => {
     setLoading(true);
@@ -66,12 +68,16 @@ function App() {
     fetchAllData();
   }, []);
 
-  console.log("allGroups", allGroups);
-  console.log("nextToken", nextToken);
-  console.log("activeTab", activeTab);
+  // console.log("badges", badges);
+
   return (
     <section className="section">
-      <AsideComponent />
+      <AsideComponent
+        range={range}
+        setRange={setRange}
+        badges={badges}
+        setBadges={setBadges}
+      />
       {loading ? (
         <ModalWrapper>
           <Loader />
@@ -82,6 +88,7 @@ function App() {
           activeTab={activeTab}
           selectActiveTab={selectActiveTab}
           data={allGroups}
+          badges={badges}
         />
       )}
     </section>
