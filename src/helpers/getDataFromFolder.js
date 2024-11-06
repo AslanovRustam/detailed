@@ -10,7 +10,7 @@ const s3 = new S3Client({
   region: REGION,
   credentials: fromCognitoIdentityPool({
     clientConfig: { region: REGION },
-    identityPoolId: "eu-central-1:31ebe2ab-fc9d-4a2c-96a9-9dee9a9db8b9",
+    identityPoolId: import.meta.env.VITE_IDENTITY_POOL_ID,
   }),
 });
 
@@ -169,7 +169,7 @@ export const listAllFiles = async (
 
       const data = await s3.send(command);
 
-      if (!data.Contents) break;
+      if (!data?.Contents) break;
 
       await Promise.all(
         data.Contents.map((file) => {

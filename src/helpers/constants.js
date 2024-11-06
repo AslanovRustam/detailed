@@ -49,10 +49,4 @@ export const colorsForPolygon = {
   wristPositive: "#d783ff",
 };
 
-// "elbowPositive",
-// "fingersPositive",
-// "forearmFracture",
-// "humerusFracture",
-// "humerus",
-// "shoulderFracture",
-// "wristPositive",
+export const LIMIT_PER_PAGE = 10;

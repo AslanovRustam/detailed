@@ -3,7 +3,7 @@ import AsideComponent from "./components/aside/AsideComponent";
 import Content from "./components/content/Content";
 import ModalWrapper from "./components/modal/ModalWrapper";
 import Loader from "./components/loader/Loader";
-import { badgeNames, tabs } from "./helpers/constants";
+import { badgeNames, LIMIT_PER_PAGE, tabs } from "./helpers/constants";
 import { listAllFiles } from "./helpers/getDataFromFolder";
 import "./index.css";
 
@@ -34,9 +34,9 @@ function App() {
     setLoading(true);
     try {
       const promises = [
-        listAllFiles("valid", 200, tokens.tokenValid),
-        listAllFiles("train", 200, tokens.tokenTrain),
-        listAllFiles("test", 200, tokens.tokenTest),
+        listAllFiles("valid", LIMIT_PER_PAGE, tokens.tokenValid),
+        listAllFiles("train", LIMIT_PER_PAGE, tokens.tokenTrain),
+        listAllFiles("test", LIMIT_PER_PAGE, tokens.tokenTest),
       ];
       const [validFiles, trainFiles, testFiles] = await Promise.all(promises);
       setAllGroups({
@@ -49,8 +49,11 @@ function App() {
         tokenTrain: trainFiles.nextContinuationToken || null,
         tokenTest: testFiles.nextContinuationToken || null,
       });
-      if (data.nextContinuationToken) {
-        setTokens((prevTokens) => [...prevTokens, data.nextContinuationToken]);
+      if (validFiles?.nextContinuationToken) {
+        setTokens((prevTokens) => ({
+          ...prevTokens,
+          validFiles: validFiles.nextContinuationToken,
+        }));
       }
     } catch (error) {
       console.log("Something went wrong", error);
@@ -67,7 +70,6 @@ function App() {
   useEffect(() => {
     fetchAllData();
   }, []);
-  console.log(allGroups);
 
   return (
     <section className="section">
