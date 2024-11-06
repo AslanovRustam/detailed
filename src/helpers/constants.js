@@ -49,4 +49,4 @@ export const colorsForPolygon = {
   wristPositive: "#d783ff",
 };
 
-export const LIMIT_PER_PAGE = 10;
+export const LIMIT_PER_PAGE = 200;
